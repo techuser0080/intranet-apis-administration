@@ -1,13 +1,9 @@
-import express from 'express'
+import mysql from 'mysql2'
 
-const port = 4000
-const app = express()
-
-app.use(express.json())
-app.use('/api/user')
-
-const main = () => {
-    app.listen(port)
-    console.log('Server on port '+port)
-}
-main()
+export const pool = mysql.createPool({
+    host: '127.0.0.1',
+    user: 'root',
+    port: 3306,
+    password: 'adminadmin123',
+    database: 'desa_audio'
+})
