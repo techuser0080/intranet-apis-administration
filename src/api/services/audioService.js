@@ -1,6 +1,6 @@
-import { pool } from "../../config/database"
+import { pool } from "../../config/database.js"
 
-const uploadAudioToFolder = async(folderId, creationUserId) => {
+export const uploadAudioToFolderService = async(folderId, creationUserId) => {
     const result = await new Promise((resolve, reject) => {
         pool.query('CALL spUplaodAudioToFolder(?,?,@statusCode); SELECT @statusCode', [folderId, 
             creationUserId], (err, results) => {
@@ -9,8 +9,4 @@ const uploadAudioToFolder = async(folderId, creationUserId) => {
         })
     })
     return result
-}
-
-module.exports = {
-    uploadAudioToFolder
 }

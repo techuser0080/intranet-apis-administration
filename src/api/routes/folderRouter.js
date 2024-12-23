@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { getFoldersByCompanyId, createFolder } from "../controllers/folderController"
+import { getFoldersByCompanyId, createFolder } from '../controllers/folderController.js'
 
 const router = Router()
 

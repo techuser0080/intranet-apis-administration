@@ -1,12 +1,8 @@
-import { uploadAudioToFolder } from "../services/audioService"
+import { uploadAudioToFolderService } from "../services/audioService.js"
 
-const uploadAudioToFolder = async(req, res) => {
+export const uploadAudioToFolder = async(req, res) => {
     const { folderId, creationUserId } = req.params
-    const result = await uploadAudioToFolder(folderId, creationUserId)
+    const result = await uploadAudioToFolderService(folderId, creationUserId)
     if(result == 2) res.sendStatus(500)
     res.sendStatus(200)
-}
-
-module.exports = {
-    uploadAudioToFolder
 }

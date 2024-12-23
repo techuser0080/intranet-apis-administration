@@ -1,6 +1,6 @@
 import express from 'express'
-import folderRouter from './api/routes/folderRouter'
-import audioRouter from './api/routes/audioRouter'
+import folderRouter from './api/routes/folderRouter.js'
+import audioRouter from './api/routes/audioRouter.js'
 
 const port = 4000
 const app = express()

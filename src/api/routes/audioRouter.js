@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { uploadAudioToFolder } from "../controllers/audioController"
+import { uploadAudioToFolder } from "../controllers/audioController.js"
 
 const router = Router()
 

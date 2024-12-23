@@ -1,6 +1,6 @@
-import { pool } from "../../config/database"
+import { pool } from "../../config/database.js"
 
-const getFoldersByCompanyId = async(companyId) => {
+export const getFoldersByCompanyIdService = async(companyId) => {
     const [rows] = await new Promise((resolve, reject) => {
         pool.query('CALL spGetFoldersByCompanyId(?)', [companyId], (err, results) => {
             if (err) reject(new Error(err.message))
@@ -10,7 +10,7 @@ const getFoldersByCompanyId = async(companyId) => {
     return rows
 }
 
-const createFolder = async(description, companyId, creationUserId) => {
+export const createFolderService = async(description, companyId, creationUserId) => {
     const result = await new Promise((resolve, reject) => {
         pool.query('CALL spCreateFolder(?,?,?,@statusCode); SELECT @statusCode', [description, companyId, 
             creationUserId], (err, results) => {
@@ -19,9 +19,4 @@ const createFolder = async(description, companyId, creationUserId) => {
         })
     })
     return result
-}
-
-module.exports = {
-    getFoldersByCompanyId,
-    createFolder
 }
