@@ -7,8 +7,9 @@ export const getFoldersByCompanyId = async(req, res) => {
 }
 
 export const createFolder = async(req, res) => {
-    const { description, companyId, creationUserId } = req.body.folder
-    const result = await createFolderService(description, companyId, creationUserId)
+    const { description, companyId, creationUserId } = req.body
+    const { result } = await createFolderService(description, companyId, creationUserId)
+    console.log(result)
     if (result == 2) res.sendStatus(500)
     res.sendStatus(200)
 }
