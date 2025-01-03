@@ -5,7 +5,7 @@ export const uploadAudioToFolderService = async(folderId, creationUserId) => {
         pool.query('CALL spUploadAudioToFolder(?,?,@statusCode); SELECT @statusCode AS result;', [folderId, 
             creationUserId], (err, results) => {
                 if (err) reject(new Error(err.message))
-                resolve(results)
+                resolve(results[1][0])
         })
     })
     return result

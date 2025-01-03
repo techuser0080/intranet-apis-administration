@@ -1,4 +1,4 @@
-module.exports.Constants = Object.freeze({
+export const Constants = Object.freeze({
     JWT_SECRET_SIGNATURE_NAME: 'killadatasecretkey',
     SECURITY_DATABASE_HOST: '127.0.0.1',
     SECURITY_DATABASE_PORT: '3306',

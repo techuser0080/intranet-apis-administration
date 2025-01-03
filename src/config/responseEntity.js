@@ -1,4 +1,4 @@
-import { Constants } from "./constants"
+import { Constants } from "./constants.js"
 
 export const responseBody = (statusCode, message, data) => {
     const responseBody = {
