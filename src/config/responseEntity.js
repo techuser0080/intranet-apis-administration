@@ -5,8 +5,8 @@ export const responseBody = (statusCode, message, data) => {
         id: statusCode == 1 ? statusCode : 2,
         message: message,
         data: data,
-        stringAlternativo: data.stringAlternativo ? data.stringAlternativo : Constants.STRING_EMPTY,
-        intAlternativo: data.intAlternativo ? data.intAlternativo : Constants.NUMBER_ZERO
+        stringAlternativo: (data && data.stringAlternativo) ? data.stringAlternativo : Constants.STRING_EMPTY,
+        intAlternativo: (data && data.intAlternativo) ? data.intAlternativo : Constants.NUMBER_ZERO
     }
     return responseBody
 }

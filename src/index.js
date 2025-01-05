@@ -4,6 +4,7 @@ import folderRouter from './api/routes/folderRouter.js'
 import audioRouter from './api/routes/audioRouter.js'
 import { Constants } from './config/constants.js'
 import cookieParser from 'cookie-parser'
+import { responseBody } from './config/responseEntity.js'
 
 const port = 4000
 const app = express()
@@ -12,16 +13,19 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use((req, res, next) => {
-    const token = req.cookies.acces_token
+    const tokenHeaderAuthorization = req.header('Authorization') ? String(req.header('Authorization').substring(7, req.header('Authorization').length)) : ''
+    const token = req.cookies.access_token || tokenHeaderAuthorization
     req.session = { user: null }
 
     try {
-        const data = jwt.verify(token, Constants.JWT_SECRET_SIGNATURE_NAME)
-        req.session.user = data
-    } catch (error) {
-        console.log(error)
+        if (token && String(token).length > 0 ) {
+            const data = jwt.verify(token, Constants.JWT_SECRET_SIGNATURE_NAME)
+            req.session.user = data
+            next()
+        } else return res.status(401).send(responseBody(2, Constants.MESSAGE_STATUS_ERROR, null))
+    } catch(error) {
+        return res.status(401).send(responseBody(2, Constants.MESSAGE_STATUS_ERROR, null))
     }
-    next()
 })
 
 app.use('/api/folder', folderRouter)

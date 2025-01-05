@@ -12,7 +12,6 @@ export const getFoldersByCompanyIdService = async(companyId) => {
 
 export const createFolderService = async(description, companyId, creationUserId) => {
     const result = await new Promise((resolve, reject) => {
-        console.log(description, companyId, creationUserId)
         pool.query('CALL spCreateFolder(?,?,?,@statusCode); SELECT @statusCode AS result;', [description, companyId, 
             creationUserId], (err, results) => {
                 if (err) reject(new Error(err.message))
