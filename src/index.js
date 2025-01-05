@@ -4,6 +4,7 @@ import folderRouter from './api/routes/folderRouter.js'
 import audioRouter from './api/routes/audioRouter.js'
 import { Constants } from './config/constants.js'
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
 import { responseBody } from './config/responseEntity.js'
 
 const port = 4000
@@ -11,6 +12,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors())
 
 app.use((req, res, next) => {
     const tokenHeaderAuthorization = req.header('Authorization') ? String(req.header('Authorization').substring(7, req.header('Authorization').length)) : ''
