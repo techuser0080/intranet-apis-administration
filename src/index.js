@@ -6,11 +6,13 @@ import { Constants } from './config/constants.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import { responseBody } from './config/responseEntity.js'
+import bodyParser from 'body-parser'
 
 const port = 4000
 const app = express()
 
 app.use(express.json())
+//app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(cors({
     credentials: true, 
@@ -18,6 +20,7 @@ app.use(cors({
 }))
 
 app.use((req, res, next) => {
+    if (req.path == '/api/folder/:folderId/configfolder/:configFolderId/audioResponse') return next()
     const tokenHeaderAuthorization = req.header('Authorization') ? String(req.header('Authorization').substring(7, req.header('Authorization').length)) : ''
     const token = req.cookies.access_token || tokenHeaderAuthorization
     req.session = { user: null }
