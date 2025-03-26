@@ -3,7 +3,7 @@ import { responseBody } from "../../config/responseEntity.js"
 import json2csv from 'json2csv'
 import { getFoldersByCompanyIdService, createFolderService, updateFolderService, deleteFolderService, createConfigFolderService, getConfigFoldersByCompanyIdService, createPromptService, getPromptsByConfigFolderIdAndFolderIdService, getFoldersByFolderConfigIdService, getAudioResponseByFolderIdAndFolderConfigIdService, getNoProcessedAudiosByFolderIdService, createAudioResponseService, updateAudioStatusProcessedService, updateProcessedAudiosByFolderIdService, updateAnalizedAudiosByFolderIdService, updatePromptService } from "../services/folderService.js"
 import { uploadAudioToFolderService } from "../services/audioService.js"
-import fs, { unlinkSync } from 'fs'
+import fs from 'fs'
 import { createClient } from "@deepgram/sdk"
 import OpenAi from 'openai'
 
@@ -129,8 +129,9 @@ export const uploadAudiosToFolder = async(req, res) => {
     try {
         const { folderId } = req.params
         const { creationUserId } = req.body
+        const deepGramApiKey = process.env.DEEPGRAM_APIKEY
         for (const audio of req.files) {
-            const deepgram = createClient('78a458950cc31569767ac2704de432d53b72b528')
+            const deepgram = createClient(deepGramApiKey)
             const { result, error } = await deepgram.listen.prerecorded.transcribeFile(
                 fs.readFileSync(audio.path),
                 {
@@ -186,9 +187,10 @@ export const analizeAudiosByFolderIdAndModel = async(req, res) => {
         const { folderId, model } = req.params
         const { prompt, instruction } = req.body
         const rows = await getNoProcessedAudiosByFolderIdService(folderId)
+        const openAiApikey = process.env.OPENAI_APIKEY
         for (let i = 0; i < rows.length; i++) {
             const client = new OpenAi({
-                apiKey: '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'
+                apiKey: openAiApikey
             })
             const chatCompletion = await client.chat.completions.create({
                 messages: [{'role': 'system', 'content': instruction},

@@ -6,13 +6,13 @@ import { Constants } from './config/constants.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import { responseBody } from './config/responseEntity.js'
-import bodyParser from 'body-parser'
+import dotenv from 'dotenv'
 
 const port = 4000
 const app = express()
 
 app.use(express.json())
-//app.use(express.urlencoded({ extended: true }))
+app.use(dotenv.config())
 app.use(cookieParser())
 app.use(cors({
     credentials: true, 
