@@ -8,7 +8,7 @@ import cors from 'cors'
 import { responseBody } from './config/responseEntity.js'
 import dotenv from 'dotenv'
 
-const port = 4000
+const port = process.env.PORT || 4000
 const app = express()
 
 app.use(express.json())
